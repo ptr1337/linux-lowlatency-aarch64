@@ -6,7 +6,7 @@ pkgbase=linux-lowlatency
 _srcname=linux-5.12
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.12.6
+pkgver=5.12.8
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -55,6 +55,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '0007-enable-jack-detection-pinetab.patch'
         '0008-enable-hdmi-output-pinetab.patch'
         '0009-drm-panel-fix-PineTab-display.patch'
+      #  'panic-led.patch'
         '0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch'
         '0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch'
         '0003-revert-fbcon-remove-soft-scrollback-code.patch'
@@ -75,7 +76,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('8c7420990de85f6754db287337da08b4'
-         'c8b04ee6bbc9e58dae1863c91b64231d'
+         'cc77a958f730253d88ab0c9d429b5312'
          '9e6b7f44db105fef525d715213dce7cf'
          '9986e28b5c2c3c62a5c3bb53abd94640'
          '552ea82c3a5e14ca9149da8c4b4d5a82'
@@ -146,7 +147,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
   patch -Np1 -i "${srcdir}/0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch"             #RK3328
   patch -Np1 -i "${srcdir}/0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch"             #RK3328
-  
+
   # Manjaro ARM Patches
   patch -Np1 -i "${srcdir}/0005-arm64-dts-allwinner-add-hdmi-sound-to-pine-devices.patch"               #Pine64
   patch -Np1 -i "${srcdir}/0006-arm64-dts-allwinner-add-ohci-ehci-to-h5-nanopi.patch"                   #Nanopi Neo Plus 2
@@ -164,7 +165,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0030-arm64-dts-meson-add-initial-Beelink-GT1-Ultimate-dev.patch"             #Beelink
   patch -Np1 -i "${srcdir}/0031-add-ugoos-device.patch"                                                 #Ugoos
   patch -Np1 -i "${srcdir}/0032-drm-meson-fix-green-pink-color-distortion-set-from-u.patch"				#AMLogic
-  
+
   # Pinebook Pro patches
   patch -Np1 -i "${srcdir}/0017-tty-serdev-support-shutdown-op.patch"                                   #Wifi/BT
   patch -Np1 -i "${srcdir}/0018-bluetooth-hci_serdev-Clear-registered-bit-on-unregister.patch"          #Bluetooth
@@ -177,7 +178,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0025-ASoC-soc-jack.c-supported-inverted-jack-detect-GPIOs.patch"             #Audio
   patch -Np1 -i "${srcdir}/0026-arm64-dts-rockchip-add-typec-extcon-hack.patch"                         #DP Alt mode
   patch -Np1 -i "${srcdir}/0027-arm64-dts-rockchip-setup-USB-type-c-port-as-dual-data-role.patch"       #USB-C charging
-  
+
   # Pinebook, PinePhone and PineTab patches
   patch -Np1 -i "${srcdir}/0028-revert-arm64-dts-allwinner-a64-Add-I2S2-node.patch"                     #Allwinner
   patch -Np1 -i "${srcdir}/0001-Bluetooth-Add-new-quirk-for-broken-local-ext-features.patch"            #Bluetooth
@@ -188,8 +189,10 @@ prepare() {
   patch -Np1 -i "${srcdir}/0006-pinetab-accelerometer.patch"                                            #accelerometer
   patch -Np1 -i "${srcdir}/0007-enable-jack-detection-pinetab.patch"                                    #Audio
   patch -Np1 -i "${srcdir}/0008-enable-hdmi-output-pinetab.patch"                                       #HDMI
-  patch -Np1 -i "${srcdir}/0009-drm-panel-fix-PineTab-display.patch"                                    #Display
-  
+  patch -Np1 -i "${srcdir}/0009-drm-panel-fix-PineTab-display.patch"
+  patch -Np1 -i "${srcdir}/panic-led.patch"
+  patch -Np1 -i "${srcdir}/0179-arm64-dts-allwinner-pinephone-improve-device-tree.patch"                                #Display
+
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"
   patch -Np1 -i "${srcdir}/0002-revert-fbcon-remove-no-op-fbcon_set_origin.patch"
@@ -206,7 +209,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/0010-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0011-bootsplash.patch"
   patch -Np1 -i "${srcdir}/0012-bootsplash.patch"
-  
+
   cat "${srcdir}/config" > ./.config
 
   # add pkgrel to extraversion
