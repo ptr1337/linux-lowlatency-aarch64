@@ -6,7 +6,7 @@ pkgbase=linux-lowlatency
 _srcname=linux-5.12
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.12.8
+pkgver=5.12.19
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -15,6 +15,7 @@ makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' '
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
+        "https://raw.githubusercontent.com/ptr1337/linux-cacule-aur/master/patches/CacULE/v5.12/cacule-5.12.patch"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-add-usb3-controller-node-for-RK33.patch'
         '0003-arm64-dts-rockchip-enable-usb3-nodes-on-rk3328-rock6.patch'
@@ -142,6 +143,7 @@ prepare() {
 
   # add upstream patch
   patch -Np1 -i "${srcdir}/patch-${pkgver}"
+  patch -Np1 -i "${srcdir}/cacule-5.12.patch"             #All
 
   # ALARM patches
   patch -Np1 -i "${srcdir}/0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch"             #All
