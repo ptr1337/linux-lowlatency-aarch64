@@ -192,8 +192,8 @@ prepare() {
   patch -Np1 -i "${srcdir}/0007-enable-jack-detection-pinetab.patch"                                    #Audio
   patch -Np1 -i "${srcdir}/0008-enable-hdmi-output-pinetab.patch"                                       #HDMI
   patch -Np1 -i "${srcdir}/0009-drm-panel-fix-PineTab-display.patch"
-  patch -Np1 -i "${srcdir}/panic-led.patch"
-  patch -Np1 -i "${srcdir}/0179-arm64-dts-allwinner-pinephone-improve-device-tree.patch"                                #Display
+  #patch -Np1 -i "${srcdir}/panic-led.patch"
+  #patch -Np1 -i "${srcdir}/0179-arm64-dts-allwinner-pinephone-improve-device-tree.patch"                                #Display
 
   # Bootsplash patches
   patch -Np1 -i "${srcdir}/0001-revert-fbcon-remove-now-unusued-softback_lines-cursor-argument.patch"
